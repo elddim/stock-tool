@@ -1,10 +1,1211 @@
 <!DOCTYPE html>
-<html lang="zh-TW">
+<html lang="zh-Hant">
 <head>
-  <meta charset="UTF-8">
-  <title>我的股票工具</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <title>錢錢股票商店</title>
+
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: "Arial", "Microsoft JhengHei", sans-serif;
+      background: #fffaf0;
+      color: #333;
+    }
+
+    /* =========================
+       Header
+    ========================= */
+
+    header {
+      background: linear-gradient(135deg, #fff1a8, #ffd76a);
+      padding: 35px 20px;
+      text-align: center;
+    }
+
+    header h1 {
+      margin: 0;
+      font-size: 36px;
+    }
+
+    header p {
+      margin-top: 10px;
+      color: #6d5a22;
+      font-size: 17px;
+    }
+
+    /* =========================
+       Main
+    ========================= */
+
+    .container {
+      max-width: 1100px;
+      margin: 30px auto;
+      padding: 0 20px;
+    }
+
+    /* =========================
+       Money wallet
+    ========================= */
+
+    .wallet {
+      background: white;
+      border-radius: 24px;
+      padding: 28px;
+      text-align: center;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.07);
+      margin-bottom: 30px;
+    }
+
+    .money-character {
+      font-size: 60px;
+      animation: bounce 2s infinite;
+    }
+
+    @keyframes bounce {
+      0%, 100% {
+        transform: translateY(0);
+      }
+
+      50% {
+        transform: translateY(-8px);
+      }
+    }
+
+    .wallet h2 {
+      margin: 8px 0;
+    }
+
+    .wallet-input {
+      max-width: 350px;
+      margin: 20px auto;
+    }
+
+    .wallet-input input {
+      width: 100%;
+      padding: 15px;
+      border-radius: 14px;
+      border: 2px solid #ffd76a;
+      font-size: 22px;
+      text-align: center;
+      outline: none;
+    }
+
+    .wallet-status {
+      font-size: 15px;
+      color: #777;
+    }
+
+    /* =========================
+       Section
+    ========================= */
+
+    .section-title {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin: 30px 0 15px;
+    }
+
+    .section-title h2 {
+      margin: 0;
+    }
+
+    /* =========================
+       Stock grid
+    ========================= */
+
+    .stock-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+    }
+
+    .stock-card {
+      background: white;
+      border-radius: 22px;
+      padding: 22px;
+      box-shadow: 0 8px 24px rgba(0,0,0,0.07);
+      transition: 0.25s;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .stock-card:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 14px 30px rgba(0,0,0,0.12);
+    }
+
+    .stock-tag {
+      display: inline-block;
+      background: #fff1a8;
+      color: #6d5a22;
+      padding: 5px 10px;
+      border-radius: 20px;
+      font-size: 13px;
+      margin-bottom: 12px;
+    }
+
+    .stock-code {
+      font-size: 26px;
+      font-weight: bold;
+    }
+
+    .stock-name {
+      color: #777;
+      margin-top: 5px;
+      margin-bottom: 18px;
+    }
+
+    .price {
+      font-size: 18px;
+      margin-bottom: 15px;
+    }
+
+    .price strong {
+      font-size: 24px;
+    }
+
+    .stock-card input {
+      width: 100%;
+      padding: 12px;
+      border: 1px solid #ddd;
+      border-radius: 12px;
+      font-size: 16px;
+      margin-bottom: 10px;
+    }
+
+    .buy-result {
+      background: #fff9dc;
+      padding: 12px;
+      border-radius: 12px;
+      font-size: 14px;
+      margin-bottom: 12px;
+      min-height: 44px;
+    }
+
+    button {
+      border: none;
+      cursor: pointer;
+      transition: 0.2s;
+    }
+
+    .cart-button {
+      width: 100%;
+      padding: 13px;
+      border-radius: 14px;
+      background: #ffd76a;
+      font-size: 16px;
+      font-weight: bold;
+    }
+
+    .cart-button:hover {
+      background: #ffc83d;
+      transform: scale(1.02);
+    }
+
+    /* =========================
+       Custom stock
+    ========================= */
+
+    .custom-card {
+      background: #f5efff;
+      border: 2px dashed #c9a7ff;
+    }
+
+    .custom-card .stock-tag {
+      background: #e7d8ff;
+      color: #65469b;
+    }
+
+    /* =========================
+       Cart
+    ========================= */
+
+    .cart {
+      background: white;
+      border-radius: 24px;
+      padding: 25px;
+      margin-top: 35px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+    }
+
+    .cart h2 {
+      margin-top: 0;
+    }
+
+    .empty-cart {
+      text-align: center;
+      color: #999;
+      padding: 25px;
+    }
+
+    .cart-item {
+      display: grid;
+      grid-template-columns: 1fr auto auto;
+      gap: 15px;
+      align-items: center;
+      padding: 15px 0;
+      border-bottom: 1px solid #eee;
+    }
+
+    .cart-stock {
+      font-weight: bold;
+      font-size: 18px;
+    }
+
+    .cart-detail {
+      color: #777;
+      font-size: 14px;
+      margin-top: 4px;
+    }
+
+    .remove-button {
+      background: #ffe2e2;
+      color: #b23b3b;
+      padding: 8px 12px;
+      border-radius: 10px;
+    }
+
+    /* =========================
+       Summary
+    ========================= */
+
+    .summary {
+      margin-top: 20px;
+      background: #fff9dc;
+      border-radius: 18px;
+      padding: 20px;
+    }
+
+    .summary-row {
+      display: flex;
+      justify-content: space-between;
+      margin: 10px 0;
+    }
+
+    .summary-row.big {
+      font-size: 22px;
+      font-weight: bold;
+      padding-top: 10px;
+      border-top: 1px dashed #d6bd67;
+    }
+
+    .money-message {
+      text-align: center;
+      margin-top: 20px;
+      font-size: 18px;
+      font-weight: bold;
+    }
+
+    .money-face {
+      font-size: 45px;
+      display: block;
+      margin-bottom: 8px;
+    }
+
+    /* =========================
+       Notice
+    ========================= */
+
+    .notice {
+      margin: 25px 0 40px;
+      color: #888;
+      font-size: 13px;
+      line-height: 1.7;
+      text-align: center;
+    }
+
+    /* =========================
+       Mobile
+    ========================= */
+
+    @media (max-width: 850px) {
+      .stock-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    @media (max-width: 600px) {
+      header h1 {
+        font-size: 28px;
+      }
+
+      .stock-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .cart-item {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
 </head>
+
 <body>
-  <h1>我的股票工具成功了！</h1>
+
+<header>
+  <div style="font-size:45px;">🪙✨</div>
+  <h1>錢錢股票商店</h1>
+  <p>今天想拿多少錢錢去逛股票？</p>
+</header>
+
+<div class="container">
+
+  <!-- 我的錢包 -->
+
+  <div class="wallet">
+
+    <div class="money-character">
+      🪙
+    </div>
+
+    <h2>我的錢錢</h2>
+
+    <div class="wallet-input">
+      <input
+        id="budget"
+        type="number"
+        value="100000"
+        min="0"
+        oninput="updateCart()"
+      />
+    </div>
+
+    <div class="wallet-status">
+      輸入這次預計可以使用的投資預算
+    </div>
+
+  </div>
+
+
+  <!-- 股票 -->
+
+  <div class="section-title">
+    <h2>🛍️ 來逛股票</h2>
+    <span>挑喜歡的放進袋袋</span>
+  </div>
+
+
+  <div class="stock-grid">
+
+    <!-- 0050 -->
+
+    <div class="stock-card">
+
+      <div class="stock-tag">
+        ETF
+      </div>
+
+      <div class="stock-code">
+        0050
+      </div>
+
+      <div class="stock-name">
+        元大台灣50
+      </div>
+
+      <div class="price">
+        一股 $
+        <strong>65</strong>
+      </div>
+
+      <input
+        type="number"
+        id="amount0050"
+        placeholder="想花多少？例如 50000"
+        oninput="previewStock('0050',65)"
+      />
+
+      <div
+        class="buy-result"
+        id="preview0050"
+      >
+        輸入金額看看可以買幾股 👀
+      </div>
+
+      <button
+        class="cart-button"
+        onclick="addToCart('0050','元大台灣50',65,'amount0050')"
+      >
+        🛒 放進股票袋袋
+      </button>
+
+    </div>
+
+
+    <!-- 00924 -->
+
+    <div class="stock-card">
+
+      <div class="stock-tag">
+        ETF
+      </div>
+
+      <div class="stock-code">
+        00924
+      </div>
+
+      <div class="stock-name">
+        復華S&P500成長
+      </div>
+
+      <div class="price">
+        一股 $
+        <strong>28</strong>
+      </div>
+
+      <input
+        type="number"
+        id="amount00924"
+        placeholder="想花多少？例如 30000"
+        oninput="previewStock('00924',28)"
+      />
+
+      <div
+        class="buy-result"
+        id="preview00924"
+      >
+        輸入金額看看可以買幾股 👀
+      </div>
+
+      <button
+        class="cart-button"
+        onclick="addToCart('00924','復華S&P500成長',28,'amount00924')"
+      >
+        🛒 放進股票袋袋
+      </button>
+
+    </div>
+
+
+    <!-- 00405A -->
+
+    <div class="stock-card">
+
+      <div class="stock-tag">
+        主動ETF
+      </div>
+
+      <div class="stock-code">
+        00405A
+      </div>
+
+      <div class="stock-name">
+        自訂股票名稱
+      </div>
+
+      <div class="price">
+        一股 $
+        <strong>15</strong>
+      </div>
+
+      <input
+        type="number"
+        id="amount00405A"
+        placeholder="想花多少？例如 20000"
+        oninput="previewStock('00405A',15)"
+      />
+
+      <div
+        class="buy-result"
+        id="preview00405A"
+      >
+        輸入金額看看可以買幾股 👀
+      </div>
+
+      <button
+        class="cart-button"
+        onclick="addToCart('00405A','00405A',15,'amount00405A')"
+      >
+        🛒 放進股票袋袋
+      </button>
+
+    </div>
+
+
+    <!-- 自己輸入股票 -->
+
+    <div class="stock-card custom-card">
+
+      <div class="stock-tag">
+        ✨ 自己挑
+      </div>
+
+      <div class="stock-code">
+        自訂股票
+      </div>
+
+      <div class="stock-name">
+        找不到？自己放進來
+      </div>
+
+      <input
+        id="customCode"
+        type="text"
+        placeholder="股票代號，例如 2330"
+      />
+
+      <input
+        id="customName"
+        type="text"
+        placeholder="股票名稱，例如 台積電"
+      />
+
+      <input
+        id="customPrice"
+        type="number"
+        placeholder="目前股價"
+        oninput="previewCustomStock()"
+      />
+
+      <input
+        id="customAmount"
+        type="number"
+        placeholder="想投入多少錢？"
+        oninput="previewCustomStock()"
+      />
+
+      <div
+        class="buy-result"
+        id="previewCustom"
+      >
+        填入股價與金額，就會幫你算 ✨
+      </div>
+
+      <button
+        class="cart-button"
+        onclick="addCustomStock()"
+      >
+        🛒 放進股票袋袋
+      </button>
+
+    </div>
+
+  </div>
+
+
+  <!-- 購物車 -->
+
+  <div class="cart">
+
+    <h2>
+      🛒 我的股票袋袋
+      <span id="cartCount">0</span>
+    </h2>
+
+    <div id="cartItems">
+
+      <div class="empty-cart">
+        袋袋目前空空的 🛍️<br>
+        去挑幾檔股票吧！
+      </div>
+
+    </div>
+
+
+    <div class="summary">
+
+      <div class="summary-row">
+        <span>💰 我的預算</span>
+        <strong id="summaryBudget">
+          $100,000
+        </strong>
+      </div>
+
+      <div class="summary-row">
+        <span>🛍️ 股票購物車</span>
+        <strong id="summarySpent">
+          $0
+        </strong>
+      </div>
+
+      <div class="summary-row big">
+        <span>🪙 錢包剩下</span>
+        <span id="summaryRemain">
+          $100,000
+        </span>
+      </div>
+
+    </div>
+
+
+    <div
+      class="money-message"
+      id="moneyMessage"
+    >
+
+      <span class="money-face">
+        🪙
+      </span>
+
+      錢錢準備好了，開始逛吧！
+
+    </div>
+
+  </div>
+
+
+  <div class="notice">
+    ⚠️ 此網站目前為股票資金試算工具，
+    股價為示範或自行輸入資料，
+    尚未串接即時股票行情。<br>
+    計算結果未包含手續費、交易稅等交易成本，
+    不構成任何投資建議。
+  </div>
+
+</div>
+
+
+<script>
+
+  let cart = [];
+
+
+  function moneyFormat(number) {
+
+    return "$" +
+      Math.round(number)
+        .toLocaleString("zh-TW");
+
+  }
+
+
+  function previewStock(code, price) {
+
+    const amount =
+      Number(
+        document.getElementById(
+          "amount" + code
+        ).value
+      );
+
+    const preview =
+      document.getElementById(
+        "preview" + code
+      );
+
+
+    if (!amount || amount <= 0) {
+
+      preview.innerHTML =
+        "輸入金額看看可以買幾股 👀";
+
+      return;
+
+    }
+
+
+    const shares =
+      Math.floor(amount / price);
+
+    const actualCost =
+      shares * price;
+
+    const remain =
+      amount - actualCost;
+
+
+    preview.innerHTML = `
+      ✨ 約可以買
+      <strong>${shares.toLocaleString()} 股</strong>
+      <br>
+      實際約 ${moneyFormat(actualCost)}
+      ・剩 ${moneyFormat(remain)}
+    `;
+
+  }
+
+
+  function addToCart(
+    code,
+    name,
+    price,
+    inputId
+  ) {
+
+    const amount =
+      Number(
+        document.getElementById(
+          inputId
+        ).value
+      );
+
+
+    if (!amount || amount <= 0) {
+
+      alert("先告訴錢錢你想花多少～ 💰");
+
+      return;
+
+    }
+
+
+    const shares =
+      Math.floor(amount / price);
+
+
+    if (shares <= 0) {
+
+      alert("這個金額還買不到 1 股喔！");
+
+      return;
+
+    }
+
+
+    const actualCost =
+      shares * price;
+
+
+    const existing =
+      cart.find(
+        item => item.code === code
+      );
+
+
+    if (existing) {
+
+      existing.shares += shares;
+
+      existing.cost += actualCost;
+
+    } else {
+
+      cart.push({
+
+        code: code,
+
+        name: name,
+
+        price: price,
+
+        shares: shares,
+
+        cost: actualCost
+
+      });
+
+    }
+
+
+    document.getElementById(
+      inputId
+    ).value = "";
+
+
+    const preview =
+      document.getElementById(
+        "preview" + code
+      );
+
+    if (preview) {
+
+      preview.innerHTML =
+        "成功放進袋袋啦！ 🛍️✨";
+
+    }
+
+
+    updateCart();
+
+  }
+
+
+  function previewCustomStock() {
+
+    const price =
+      Number(
+        document.getElementById(
+          "customPrice"
+        ).value
+      );
+
+    const amount =
+      Number(
+        document.getElementById(
+          "customAmount"
+        ).value
+      );
+
+    const preview =
+      document.getElementById(
+        "previewCustom"
+      );
+
+
+    if (!price || !amount) {
+
+      preview.innerHTML =
+        "填入股價與金額，就會幫你算 ✨";
+
+      return;
+
+    }
+
+
+    const shares =
+      Math.floor(amount / price);
+
+    const cost =
+      shares * price;
+
+
+    preview.innerHTML = `
+      🪙 可以買
+      <strong>${shares.toLocaleString()} 股</strong>
+      <br>
+      實際約 ${moneyFormat(cost)}
+    `;
+
+  }
+
+
+  function addCustomStock() {
+
+    const code =
+      document.getElementById(
+        "customCode"
+      ).value.trim();
+
+    const name =
+      document.getElementById(
+        "customName"
+      ).value.trim();
+
+    const price =
+      Number(
+        document.getElementById(
+          "customPrice"
+        ).value
+      );
+
+    const amount =
+      Number(
+        document.getElementById(
+          "customAmount"
+        ).value
+      );
+
+
+    if (!code) {
+
+      alert("要先輸入股票代號喔～");
+
+      return;
+
+    }
+
+
+    if (!price || price <= 0) {
+
+      alert("請輸入正確股價");
+
+      return;
+
+    }
+
+
+    if (!amount || amount <= 0) {
+
+      alert("請輸入想投入的金額");
+
+      return;
+
+    }
+
+
+    const shares =
+      Math.floor(amount / price);
+
+    const cost =
+      shares * price;
+
+
+    if (shares <= 0) {
+
+      alert("這個金額還買不到 1 股喔！");
+
+      return;
+
+    }
+
+
+    const existing =
+      cart.find(
+        item => item.code === code
+      );
+
+
+    if (existing) {
+
+      existing.shares += shares;
+
+      existing.cost += cost;
+
+    } else {
+
+      cart.push({
+
+        code: code,
+
+        name: name || code,
+
+        price: price,
+
+        shares: shares,
+
+        cost: cost
+
+      });
+
+    }
+
+
+    document.getElementById(
+      "customCode"
+    ).value = "";
+
+    document.getElementById(
+      "customName"
+    ).value = "";
+
+    document.getElementById(
+      "customPrice"
+    ).value = "";
+
+    document.getElementById(
+      "customAmount"
+    ).value = "";
+
+    document.getElementById(
+      "previewCustom"
+    ).innerHTML =
+      "成功放進袋袋啦！ 🛍️✨";
+
+
+    updateCart();
+
+  }
+
+
+  function removeCart(index) {
+
+    cart.splice(index, 1);
+
+    updateCart();
+
+  }
+
+
+  function updateCart() {
+
+    const budget =
+      Number(
+        document.getElementById(
+          "budget"
+        ).value
+      ) || 0;
+
+
+    const cartItems =
+      document.getElementById(
+        "cartItems"
+      );
+
+
+    let totalSpent = 0;
+
+
+    cart.forEach(item => {
+
+      totalSpent += item.cost;
+
+    });
+
+
+    if (cart.length === 0) {
+
+      cartItems.innerHTML = `
+        <div class="empty-cart">
+          袋袋目前空空的 🛍️
+          <br>
+          去挑幾檔股票吧！
+        </div>
+      `;
+
+    } else {
+
+      cartItems.innerHTML =
+        cart.map(
+          (item, index) => `
+
+            <div class="cart-item">
+
+              <div>
+
+                <div class="cart-stock">
+                  ${item.code}
+                  ${item.name}
+                </div>
+
+                <div class="cart-detail">
+                  ${item.shares.toLocaleString()} 股
+                  × $${item.price.toLocaleString()}
+                </div>
+
+              </div>
+
+              <strong>
+                ${moneyFormat(item.cost)}
+              </strong>
+
+              <button
+                class="remove-button"
+                onclick="removeCart(${index})"
+              >
+                移除
+              </button>
+
+            </div>
+
+          `
+        ).join("");
+
+    }
+
+
+    const remain =
+      budget - totalSpent;
+
+
+    document.getElementById(
+      "cartCount"
+    ).innerText =
+      cart.length;
+
+
+    document.getElementById(
+      "summaryBudget"
+    ).innerText =
+      moneyFormat(budget);
+
+
+    document.getElementById(
+      "summarySpent"
+    ).innerText =
+      moneyFormat(totalSpent);
+
+
+    document.getElementById(
+      "summaryRemain"
+    ).innerText =
+      moneyFormat(remain);
+
+
+    updateMoneyCharacter(
+      budget,
+      remain
+    );
+
+  }
+
+
+  function updateMoneyCharacter(
+    budget,
+    remain
+  ) {
+
+    const message =
+      document.getElementById(
+        "moneyMessage"
+      );
+
+
+    if (remain < 0) {
+
+      message.innerHTML = `
+        <span class="money-face">
+          😭💸
+        </span>
+        不行啦！超出預算
+        ${moneyFormat(
+          Math.abs(remain)
+        )} 了！
+      `;
+
+      return;
+
+    }
+
+
+    if (budget === 0) {
+
+      message.innerHTML = `
+        <span class="money-face">
+          🪙
+        </span>
+        先告訴我今天有多少錢錢～
+      `;
+
+      return;
+
+    }
+
+
+    const ratio =
+      remain / budget;
+
+
+    if (ratio >= 0.7) {
+
+      message.innerHTML = `
+        <span class="money-face">
+          🪙✨
+        </span>
+        錢包還胖胖的，可以慢慢逛！
+      `;
+
+    } else if (ratio >= 0.4) {
+
+      message.innerHTML = `
+        <span class="money-face">
+          😊🪙
+        </span>
+        買了一些，錢錢還很有精神！
+      `;
+
+    } else if (ratio >= 0.15) {
+
+      message.innerHTML = `
+        <span class="money-face">
+          😳🪙
+        </span>
+        錢錢開始變瘦了，要注意預算囉！
+      `;
+
+    } else {
+
+      message.innerHTML = `
+        <span class="money-face">
+          🥹💰
+        </span>
+        錢錢快見底啦！
+      `;
+
+    }
+
+  }
+
+
+  updateCart();
+
+</script>
+
 </body>
 </html>
