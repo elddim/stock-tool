@@ -19,7 +19,7 @@
     }
 
     header {
-      background: linear-gradient(135deg, #fff4b8, #ffd76a);
+      background: linear-gradient(135deg, #fff3ad, #ffd76a);
       text-align: center;
       padding: 38px 20px;
     }
@@ -30,8 +30,7 @@
     }
 
     header p {
-      color: #735d1d;
-      margin-bottom: 0;
+      color: #725a17;
     }
 
     .container {
@@ -45,7 +44,7 @@
       border-radius: 24px;
       padding: 26px;
       margin-bottom: 25px;
-      box-shadow: 0 8px 28px rgba(0,0,0,0.07);
+      box-shadow: 0 8px 28px rgba(0,0,0,.07);
     }
 
     .money {
@@ -64,18 +63,18 @@
       }
     }
 
-    h2 {
-      margin-top: 0;
-    }
-
     .center {
       text-align: center;
     }
 
+    h2 {
+      margin-top: 0;
+    }
+
     label {
       display: block;
-      font-weight: bold;
       margin-bottom: 8px;
+      font-weight: bold;
     }
 
     input {
@@ -98,8 +97,8 @@
 
     .budget input {
       border: 2px solid #ffd76a;
-      font-size: 24px;
       text-align: center;
+      font-size: 24px;
     }
 
     .search-row {
@@ -117,8 +116,8 @@
     }
 
     .yellow-btn {
-      background: #ffd76a;
       padding: 13px 22px;
+      background: #ffd76a;
       font-weight: bold;
     }
 
@@ -135,45 +134,49 @@
 
     .stock-result {
       display: none;
-      background: #fff9dc;
-      border-radius: 20px;
-      padding: 22px;
       margin-top: 22px;
+      padding: 22px;
+      border-radius: 20px;
+      background: #fff9dc;
     }
 
     .stock-header {
       display: flex;
       justify-content: space-between;
-      gap: 20px;
       align-items: center;
+      gap: 20px;
       flex-wrap: wrap;
     }
 
     .tag {
       display: inline-block;
       background: #ffd76a;
-      border-radius: 20px;
       padding: 5px 11px;
+      border-radius: 20px;
       font-size: 13px;
     }
 
+    .tag.otc {
+      background: #d9efff;
+    }
+
     .stock-code {
+      margin-top: 10px;
       font-size: 32px;
       font-weight: bold;
-      margin-top: 10px;
     }
 
     .stock-name {
-      font-size: 19px;
-      color: #777;
       margin-top: 4px;
+      color: #777;
+      font-size: 19px;
     }
 
     .price-box {
+      min-width: 190px;
+      padding: 16px 22px;
       background: white;
       border-radius: 18px;
-      padding: 16px 22px;
-      min-width: 190px;
     }
 
     .price-title {
@@ -182,9 +185,9 @@
     }
 
     .price {
+      margin: 5px 0;
       font-size: 32px;
       font-weight: bold;
-      margin: 5px 0;
     }
 
     .date {
@@ -200,9 +203,9 @@
     }
 
     .market-box {
+      padding: 13px;
       background: white;
       border-radius: 14px;
-      padding: 13px;
     }
 
     .market-label {
@@ -224,15 +227,15 @@
     .preview {
       margin: 12px 0;
       padding: 15px;
-      border-radius: 13px;
       background: white;
+      border-radius: 13px;
       line-height: 1.7;
     }
 
     .cart-btn {
       width: 100%;
-      background: #ffd76a;
       padding: 14px;
+      background: #ffd76a;
       font-weight: bold;
     }
 
@@ -267,17 +270,17 @@
     }
 
     .empty {
-      color: #999;
       text-align: center;
+      color: #999;
       padding: 25px;
       line-height: 1.8;
     }
 
     .summary {
-      background: #fff9dc;
+      margin-top: 20px;
       padding: 20px;
       border-radius: 18px;
-      margin-top: 20px;
+      background: #fff9dc;
     }
 
     .summary-row {
@@ -287,15 +290,15 @@
     }
 
     .summary-row.big {
-      border-top: 1px dashed #d0b858;
       padding-top: 13px;
+      border-top: 1px dashed #d0b858;
       font-size: 22px;
       font-weight: bold;
     }
 
     .money-message {
-      text-align: center;
       margin-top: 20px;
+      text-align: center;
       font-size: 18px;
       font-weight: bold;
       line-height: 1.6;
@@ -314,7 +317,7 @@
       padding: 5px 10px 40px;
     }
 
-    @media (max-width:700px) {
+    @media(max-width:700px) {
       .search-row {
         grid-template-columns: 1fr;
       }
@@ -330,11 +333,9 @@
   </style>
 </head>
 
-
 <body>
 
 <header>
-
   <div style="font-size:48px;">
     🪙✨
   </div>
@@ -344,15 +345,12 @@
   </h1>
 
   <p>
-    今天帶多少錢錢來逛股票？
+    上市、上櫃都可以逛 🛍️
   </p>
-
 </header>
 
 
 <div class="container">
-
-  <!-- 錢包 -->
 
   <div class="card center">
 
@@ -365,7 +363,6 @@
     </h2>
 
     <div class="budget">
-
       <input
         id="budget"
         type="number"
@@ -373,17 +370,14 @@
         min="0"
         oninput="updateCart()"
       >
-
     </div>
 
     <div style="color:#777;">
-      輸入這次想拿多少預算逛股票
+      輸入這次想拿多少錢錢買股票
     </div>
 
   </div>
 
-
-  <!-- 搜尋 -->
 
   <div class="card">
 
@@ -400,7 +394,7 @@
       <input
         id="stockCode"
         type="text"
-        placeholder="例如：2330"
+        placeholder="例如：2330、6488"
         onkeydown="if(event.key==='Enter') searchStock()"
       >
 
@@ -413,13 +407,10 @@
 
     </div>
 
-
     <div id="status">
-      🪙 試試看輸入 2330
+      🪙 可以搜尋上市或上櫃股票
     </div>
 
-
-    <!-- 搜尋結果 -->
 
     <div
       id="stockResult"
@@ -430,8 +421,11 @@
 
         <div>
 
-          <span class="tag">
-            🇹🇼 TWSE 上市
+          <span
+            id="marketTag"
+            class="tag"
+          >
+            🇹🇼 上市
           </span>
 
           <div
@@ -468,12 +462,9 @@
       </div>
 
 
-      <!-- 行情 -->
-
       <div class="market-data">
 
         <div class="market-box">
-
           <div class="market-label">
             開盤價
           </div>
@@ -482,12 +473,10 @@
             id="openingPrice"
             class="market-value"
           ></div>
-
         </div>
 
 
         <div class="market-box">
-
           <div class="market-label">
             最高價
           </div>
@@ -496,12 +485,10 @@
             id="highestPrice"
             class="market-value"
           ></div>
-
         </div>
 
 
         <div class="market-box">
-
           <div class="market-label">
             最低價
           </div>
@@ -510,12 +497,10 @@
             id="lowestPrice"
             class="market-value"
           ></div>
-
         </div>
 
 
         <div class="market-box">
-
           <div class="market-label">
             漲跌
           </div>
@@ -524,28 +509,24 @@
             id="change"
             class="market-value"
           ></div>
-
         </div>
 
       </div>
 
 
-      <!-- 投入 -->
-
       <div class="buy-section">
 
         <label>
-          💰 想花多少錢錢買這檔？
+          💰 這檔想花多少錢錢？
         </label>
 
         <input
           id="investAmount"
           type="number"
-          placeholder="例如：30000"
           min="0"
+          placeholder="例如：30000"
           oninput="previewBuy()"
         >
-
 
         <div
           id="preview"
@@ -553,7 +534,6 @@
         >
           輸入金額，錢錢會幫你算可以買幾股 ✨
         </div>
-
 
         <button
           class="cart-btn"
@@ -569,8 +549,6 @@
   </div>
 
 
-  <!-- 購物車 -->
-
   <div class="card">
 
     <h2>
@@ -580,17 +558,12 @@
       </span>
     </h2>
 
-
     <div id="cartItems">
 
       <div class="empty">
-
         袋袋目前空空的 🛍️
-
         <br>
-
         去找一檔喜歡的股票吧！
-
       </div>
 
     </div>
@@ -599,7 +572,6 @@
     <div class="summary">
 
       <div class="summary-row">
-
         <span>
           💰 我的預算
         </span>
@@ -607,25 +579,21 @@
         <strong id="summaryBudget">
           $100,000
         </strong>
-
       </div>
 
 
       <div class="summary-row">
-
         <span>
-          🛍️ 已買股票
+          🛍️ 已選股票
         </span>
 
         <strong id="summarySpent">
           $0
         </strong>
-
       </div>
 
 
       <div class="summary-row big">
-
         <span>
           🪙 錢包剩下
         </span>
@@ -633,7 +601,6 @@
         <span id="summaryRemain">
           $100,000
         </span>
-
       </div>
 
     </div>
@@ -648,7 +615,7 @@
         🪙✨
       </span>
 
-      錢錢準備好了，開始逛吧！
+      錢錢準備好囉！
 
     </div>
 
@@ -656,24 +623,14 @@
 
 
   <div class="notice">
-
     本網站為股票資金試算工具。
-
     <br>
-
-    股價資料透過本站 Vercel API
-    取得臺灣證券交易所公開資料。
-
+    上市資料來自 TWSE，上櫃資料來自 TPEx。
     <br>
-
-    使用 ClosingPrice 作為試算價格，
-    並非券商盤中即時成交價。
-
+    使用最新可取得收盤價進行試算，
+    並非券商盤中即時逐筆報價。
     <br>
-
-    未計算手續費、交易稅等交易成本，
-    不構成投資建議。
-
+    未包含手續費、交易稅等交易成本。
   </div>
 
 </div>
@@ -681,30 +638,17 @@
 
 <script>
 
-  /*
-   ====================================
-   ★ 重要
-   不直接連 TWSE
-
-   而是連我們自己的：
-
-   /api/stock
-   ====================================
-  */
-
-  const TWSE_API = "/api/stock";
+  const STOCK_API =
+    "/api/stock";
 
 
-  let currentStock = null;
+  let currentStock =
+    null;
 
-  let cart = [];
 
+  let cart =
+    [];
 
-  /*
-   ====================================
-   金額格式
-   ====================================
-  */
 
   function moneyFormat(number) {
 
@@ -715,27 +659,20 @@
   }
 
 
-  /*
-   ====================================
-   價格轉數字
-   ====================================
-  */
-
   function parsePrice(value) {
 
     if (
       value === undefined ||
       value === null
     ) {
-
       return 0;
-
     }
 
 
     const cleaned =
       String(value)
         .replace(/,/g, "")
+        .replace(/--/g, "")
         .trim();
 
 
@@ -743,25 +680,12 @@
       Number(cleaned);
 
 
-    if (
-      Number.isNaN(number)
-    ) {
-
-      return 0;
-
-    }
-
-
-    return number;
+    return Number.isNaN(number)
+      ? 0
+      : number;
 
   }
 
-
-  /*
-   ====================================
-   搜尋股票
-   ====================================
-  */
 
   async function searchStock() {
 
@@ -785,10 +709,6 @@
       );
 
 
-    /*
-      沒輸入
-    */
-
     if (!code) {
 
       status.innerHTML =
@@ -798,16 +718,11 @@
         "none";
 
       return;
-
     }
 
 
-    /*
-      搜尋中
-    */
-
     status.innerHTML =
-      "🪙 錢錢正在翻找股票架..." ;
+      "🪙 錢錢正在上市＋上櫃一起找..." ;
 
 
     result.style.display =
@@ -816,81 +731,53 @@
 
     try {
 
-      /*
-        ★ 呼叫自己的 Vercel API
-      */
-
       const response =
         await fetch(
-          TWSE_API,
+          STOCK_API,
           {
             cache: "no-store"
           }
         );
 
 
-      /*
-        HTTP 錯誤
-      */
-
       if (!response.ok) {
 
         throw new Error(
-          "API HTTP 錯誤：" +
+          "API HTTP " +
           response.status
         );
 
       }
 
 
-      /*
-        取得 JSON
-      */
-
       const data =
         await response.json();
 
 
-      /*
-        確認是不是陣列
-      */
-
       if (!Array.isArray(data)) {
 
-        console.log(
-          "API 回傳內容：",
-          data
-        );
-
+        console.log(data);
 
         throw new Error(
-          "API 回傳格式不是股票陣列"
+          "API 回傳格式錯誤"
         );
 
       }
 
 
-      /*
-        找股票
-      */
-
       const stock =
-        data.find(item => {
+        data.find(item =>
 
-          return (
-            String(item.Code || "")
-              .trim()
-              .toUpperCase()
-            ===
-            code
-          );
+          String(
+            item.code || ""
+          )
+            .trim()
+            .toUpperCase()
+          ===
+          code
 
-        });
+        );
 
-
-      /*
-        找不到
-      */
 
       if (!stock) {
 
@@ -900,7 +787,7 @@
 
         status.innerHTML = `
 
-          😢 錢錢找不到
+          😢 找不到
 
           <strong>
             ${code}
@@ -909,15 +796,10 @@
           <br>
 
           <small>
-            目前這一版主要搜尋
-            TWSE 上市股票／ETF。
+            目前查詢上市與上櫃公開資料。
           </small>
 
         `;
-
-
-        result.style.display =
-          "none";
 
 
         return;
@@ -925,13 +807,9 @@
       }
 
 
-      /*
-        取得收盤價
-      */
-
       const price =
         parsePrice(
-          stock.ClosingPrice
+          stock.closingPrice
         );
 
 
@@ -942,67 +820,80 @@
 
         status.innerHTML = `
 
-          ⚠️ 有找到
+          ⚠️ 找到
 
           <strong>
-            ${stock.Code}
-            ${stock.Name}
+            ${stock.code}
+            ${stock.name}
           </strong>
 
-          ，但目前沒有可以使用的收盤價。
+          ，但目前沒有可使用的收盤價。
 
         `;
 
-
-        result.style.display =
-          "none";
-
-
         return;
-
       }
 
 
-      /*
-        儲存目前股票
-      */
-
       currentStock = {
 
+        market:
+          stock.market,
+
         code:
-          String(
-            stock.Code
-          ).trim(),
+          stock.code,
 
         name:
-          String(
-            stock.Name || ""
-          ).trim(),
+          stock.name,
 
         price:
           price,
 
         date:
-          stock.Date || "",
+          stock.date,
 
         openingPrice:
-          stock.OpeningPrice || "-",
+          stock.openingPrice || "-",
 
         highestPrice:
-          stock.HighestPrice || "-",
+          stock.highestPrice || "-",
 
         lowestPrice:
-          stock.LowestPrice || "-",
+          stock.lowestPrice || "-",
 
         change:
-          stock.Change || "-"
+          stock.change || "-"
 
       };
 
 
-      /*
-        顯示資料
-      */
+      const tag =
+        document.getElementById(
+          "marketTag"
+        );
+
+
+      if (
+        currentStock.market ===
+        "上櫃"
+      ) {
+
+        tag.textContent =
+          "🇹🇼 上櫃";
+
+        tag.className =
+          "tag otc";
+
+      } else {
+
+        tag.textContent =
+          "🇹🇼 上市";
+
+        tag.className =
+          "tag";
+
+      }
+
 
       document.getElementById(
         "resultCode"
@@ -1027,11 +918,10 @@
       document.getElementById(
         "resultDate"
       ).textContent =
-        "資料日期：" +
-        (
-          currentStock.date ||
-          "未提供"
-        );
+        currentStock.date
+          ? "資料日期：" +
+            currentStock.date
+          : "最新可取得資料";
 
 
       document.getElementById(
@@ -1058,10 +948,6 @@
         currentStock.change;
 
 
-      /*
-        清空上一筆輸入
-      */
-
       document.getElementById(
         "investAmount"
       ).value =
@@ -1074,10 +960,6 @@
         "輸入金額，錢錢會幫你算可以買幾股 ✨";
 
 
-      /*
-        顯示成功
-      */
-
       status.innerHTML = `
 
         ✨ 找到啦！
@@ -1087,6 +969,8 @@
           ${currentStock.name}
         </strong>
 
+        ・${currentStock.market}
+
       `;
 
 
@@ -1094,12 +978,9 @@
         "block";
 
 
-    } catch (error) {
+    } catch(error) {
 
-      console.error(
-        "股票搜尋錯誤：",
-        error
-      );
+      console.error(error);
 
 
       currentStock =
@@ -1117,13 +998,6 @@
         <br>
 
         <small>
-          API：
-          /api/stock
-        </small>
-
-        <br>
-
-        <small>
           ${error.message}
         </small>
 
@@ -1134,18 +1008,10 @@
   }
 
 
-  /*
-   ====================================
-   預覽可以買多少
-   ====================================
-  */
-
   function previewBuy() {
 
     if (!currentStock) {
-
       return;
-
     }
 
 
@@ -1183,52 +1049,31 @@
       );
 
 
-    /*
-      買不到一股
-    */
-
     if (
       shares <= 0
     ) {
 
-      preview.innerHTML = `
-
-        🥹 目前這筆錢錢還買不到 1 股。
-
-        <br>
-
-        這檔目前試算價格是
-
-        <strong>
-          ${moneyFormat(
-            currentStock.price
-          )}
-        </strong>
-
-      `;
+      preview.innerHTML =
+        "🥹 這筆錢目前還買不到 1 股。";
 
       return;
 
     }
 
 
-    const actualCost =
+    const cost =
       shares *
       currentStock.price;
 
 
-    const remaining =
+    const remain =
       amount -
-      actualCost;
+      cost;
 
 
     preview.innerHTML = `
 
-      ✨ 錢錢算好啦！
-
-      <br>
-
-      約可以買
+      ✨ 約可以買
 
       <strong>
         ${shares.toLocaleString("zh-TW")}
@@ -1240,15 +1085,15 @@
       實際使用
 
       <strong>
-        ${moneyFormat(actualCost)}
+        ${moneyFormat(cost)}
       </strong>
 
       <br>
 
-      這筆預算還剩
+      這筆預算剩
 
       <strong>
-        ${moneyFormat(remaining)}
+        ${moneyFormat(remain)}
       </strong>
 
     `;
@@ -1256,22 +1101,15 @@
   }
 
 
-  /*
-   ====================================
-   加入股票袋袋
-   ====================================
-  */
-
   function addToCart() {
 
     if (!currentStock) {
 
       alert(
-        "請先找一檔股票 🪙"
+        "請先找股票 🪙"
       );
 
       return;
-
     }
 
 
@@ -1289,11 +1127,10 @@
     ) {
 
       alert(
-        "先告訴錢錢你想花多少～ 💰"
+        "先輸入想花多少錢錢～"
       );
 
       return;
-
     }
 
 
@@ -1309,11 +1146,10 @@
     ) {
 
       alert(
-        "這筆錢目前還買不到 1 股喔！"
+        "這筆金額還買不到 1 股喔！"
       );
 
       return;
-
     }
 
 
@@ -1321,10 +1157,6 @@
       shares *
       currentStock.price;
 
-
-    /*
-      找購物車裡是否已經有
-    */
 
     const existing =
       cart.find(
@@ -1334,10 +1166,6 @@
       );
 
 
-    /*
-      已經有 → 累加
-    */
-
     if (existing) {
 
       existing.shares +=
@@ -1346,16 +1174,12 @@
       existing.cost +=
         cost;
 
-    }
-
-
-    /*
-      沒有 → 新增
-    */
-
-    else {
+    } else {
 
       cart.push({
+
+        market:
+          currentStock.market,
 
         code:
           currentStock.code,
@@ -1377,10 +1201,6 @@
     }
 
 
-    /*
-      清空金額
-    */
-
     document.getElementById(
       "investAmount"
     ).value =
@@ -1389,29 +1209,14 @@
 
     document.getElementById(
       "preview"
-    ).innerHTML = `
-
-      🛍️✨
-
-      <strong>
-        ${currentStock.code}
-      </strong>
-
-      成功放進股票袋袋！
-
-    `;
+    ).innerHTML =
+      "🛍️✨ 成功放進股票袋袋！";
 
 
     updateCart();
 
   }
 
-
-  /*
-   ====================================
-   移除
-   ====================================
-  */
 
   function removeCart(index) {
 
@@ -1426,12 +1231,6 @@
   }
 
 
-  /*
-   ====================================
-   更新購物車
-   ====================================
-  */
-
   function updateCart() {
 
     const budget =
@@ -1442,16 +1241,12 @@
       ) || 0;
 
 
-    let totalSpent =
-      0;
-
-
-    cart.forEach(item => {
-
-      totalSpent +=
-        item.cost;
-
-    });
+    const totalSpent =
+      cart.reduce(
+        (sum,item) =>
+          sum + item.cost,
+        0
+      );
 
 
     const cartItems =
@@ -1459,10 +1254,6 @@
         "cartItems"
       );
 
-
-    /*
-      空購物車
-    */
 
     if (
       cart.length === 0
@@ -1482,14 +1273,7 @@
 
       `;
 
-    }
-
-
-    /*
-      有股票
-    */
-
-    else {
+    } else {
 
       cartItems.innerHTML =
         cart.map(
@@ -1509,6 +1293,9 @@
                 </div>
 
                 <div class="cart-detail">
+
+                  ${item.market}
+                  ・
 
                   ${item.shares.toLocaleString("zh-TW")}
                   股
@@ -1547,10 +1334,6 @@
     }
 
 
-    /*
-      剩餘預算
-    */
-
     const remain =
       budget -
       totalSpent;
@@ -1588,12 +1371,6 @@
   }
 
 
-  /*
-   ====================================
-   錢錢表情
-   ====================================
-  */
-
   function updateMoneyFace(
     budget,
     remain
@@ -1604,10 +1381,6 @@
         "moneyMessage"
       );
 
-
-    /*
-      超過預算
-    */
 
     if (
       remain < 0
@@ -1636,10 +1409,6 @@
     }
 
 
-    /*
-      沒輸入預算
-    */
-
     if (
       budget <= 0
     ) {
@@ -1650,7 +1419,7 @@
           🪙
         </span>
 
-        先告訴我今天帶多少錢錢～
+        先輸入今天有多少錢錢～
 
       `;
 
@@ -1664,10 +1433,6 @@
       budget;
 
 
-    /*
-      很多錢
-    */
-
     if (
       ratio >= 0.7
     ) {
@@ -1678,22 +1443,11 @@
           🪙✨
         </span>
 
-        錢包還胖胖的！
-
-        <br>
-
-        可以慢慢逛～
+        錢包還胖胖的，可以繼續逛！
 
       `;
 
-    }
-
-
-    /*
-      還有一半左右
-    */
-
-    else if (
+    } else if (
       ratio >= 0.4
     ) {
 
@@ -1703,22 +1457,11 @@
           😊🪙
         </span>
 
-        買了一些股票，
-
-        <br>
-
-        錢錢還很有精神！
+        買了一些，錢錢還很有精神！
 
       `;
 
-    }
-
-
-    /*
-      剩不多
-    */
-
-    else if (
+    } else if (
       ratio >= 0.15
     ) {
 
@@ -1728,22 +1471,11 @@
           😳🪙
         </span>
 
-        錢錢開始變瘦了！
-
-        <br>
-
-        要注意預算囉～
+        錢錢開始變瘦了，要注意預算！
 
       `;
 
-    }
-
-
-    /*
-      快沒錢
-    */
-
-    else {
+    } else {
 
       message.innerHTML = `
 
@@ -1759,12 +1491,6 @@
 
   }
 
-
-  /*
-   ====================================
-   頁面第一次載入
-   ====================================
-  */
 
   updateCart();
 
