@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <title>錢錢股票商店</title>
+  <title>錢錢股票配置器</title>
 
   <style>
     * {
@@ -19,7 +19,7 @@
     }
 
     header {
-      background: linear-gradient(135deg, #fff3ad, #ffd76a);
+      background: linear-gradient(135deg, #fff3b0, #ffd76a);
       text-align: center;
       padding: 38px 20px;
     }
@@ -31,10 +31,11 @@
 
     header p {
       color: #725a17;
+      margin-bottom: 0;
     }
 
     .container {
-      max-width: 950px;
+      max-width: 1050px;
       margin: 30px auto;
       padding: 0 20px;
     }
@@ -57,7 +58,6 @@
       0%,100% {
         transform: translateY(0);
       }
-
       50% {
         transform: translateY(-8px);
       }
@@ -77,7 +77,8 @@
       font-weight: bold;
     }
 
-    input {
+    input,
+    select {
       width: 100%;
       padding: 14px;
       border: 1px solid #ddd;
@@ -86,19 +87,27 @@
       outline: none;
     }
 
-    input:focus {
+    input:focus,
+    select:focus {
       border-color: #ffc83d;
     }
 
     .budget {
-      max-width: 350px;
+      max-width: 380px;
       margin: 15px auto;
     }
 
     .budget input {
       border: 2px solid #ffd76a;
       text-align: center;
-      font-size: 24px;
+      font-size: 26px;
+      font-weight: bold;
+    }
+
+    .mode-box {
+      margin: 20px auto 0;
+      max-width: 500px;
+      text-align: left;
     }
 
     .search-row {
@@ -143,8 +152,8 @@
     .stock-header {
       display: flex;
       justify-content: space-between;
-      align-items: center;
       gap: 20px;
+      align-items: center;
       flex-wrap: wrap;
     }
 
@@ -174,8 +183,8 @@
 
     .price-box {
       min-width: 190px;
-      padding: 16px 22px;
       background: white;
+      padding: 16px 22px;
       border-radius: 18px;
     }
 
@@ -185,9 +194,9 @@
     }
 
     .price {
-      margin: 5px 0;
       font-size: 32px;
       font-weight: bold;
+      margin: 5px 0;
     }
 
     .date {
@@ -195,109 +204,128 @@
       color: #999;
     }
 
-    .market-data {
-      display: grid;
-      grid-template-columns: repeat(4,1fr);
-      gap: 10px;
+    .add-config {
       margin-top: 20px;
     }
 
-    .market-box {
-      padding: 13px;
-      background: white;
-      border-radius: 14px;
+    .config-item {
+      border: 1px solid #eee;
+      border-radius: 18px;
+      padding: 18px;
+      margin-bottom: 15px;
+      background: #fffdf6;
     }
 
-    .market-label {
-      color: #999;
-      font-size: 12px;
-    }
-
-    .market-value {
-      margin-top: 5px;
-      font-weight: bold;
-    }
-
-    .buy-section {
-      margin-top: 22px;
-      padding-top: 20px;
-      border-top: 1px dashed #d3bd62;
-    }
-
-    .preview {
-      margin: 12px 0;
-      padding: 15px;
-      background: white;
-      border-radius: 13px;
-      line-height: 1.7;
-    }
-
-    .cart-btn {
-      width: 100%;
-      padding: 14px;
-      background: #ffd76a;
-      font-weight: bold;
-    }
-
-    .cart-btn:hover {
-      background: #ffc83d;
-    }
-
-    .cart-item {
+    .config-top {
       display: grid;
-      grid-template-columns: 1fr auto auto;
-      gap: 15px;
-      align-items: center;
-      padding: 16px 0;
-      border-bottom: 1px solid #eee;
+      grid-template-columns: 1.4fr .8fr .8fr auto;
+      gap: 12px;
+      align-items: end;
     }
 
-    .cart-name {
+    .config-stock {
+      font-size: 19px;
+      font-weight: bold;
+    }
+
+    .config-sub {
+      color: #777;
+      font-size: 13px;
+      margin-top: 4px;
+    }
+
+    .remove-btn {
+      background: #ffe4e4;
+      color: #a82f2f;
+      padding: 11px 13px;
+    }
+
+    .allocation-status {
+      margin: 15px 0;
+      padding: 14px;
+      border-radius: 14px;
+      background: #f7f7f7;
+      font-weight: bold;
+    }
+
+    .allocation-status.ok {
+      background: #eaf8ee;
+      color: #26723a;
+    }
+
+    .allocation-status.bad {
+      background: #fff0f0;
+      color: #a82f2f;
+    }
+
+    .calculate-btn {
+      width: 100%;
+      background: #ffd76a;
+      padding: 15px;
       font-size: 18px;
       font-weight: bold;
     }
 
-    .cart-detail {
-      margin-top: 5px;
+    .calculate-btn:hover {
+      background: #ffc83d;
+    }
+
+    .result-card {
+      display: none;
+    }
+
+    .result-summary {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 12px;
+      margin-bottom: 20px;
+    }
+
+    .summary-box {
+      background: #fff9dc;
+      border-radius: 16px;
+      padding: 16px;
+    }
+
+    .summary-label {
+      font-size: 13px;
       color: #777;
-      font-size: 14px;
     }
 
-    .remove-btn {
-      background: #ffe5e5;
-      color: #a83030;
-      padding: 8px 12px;
+    .summary-value {
+      font-size: 22px;
+      font-weight: bold;
+      margin-top: 6px;
     }
 
-    .empty {
-      text-align: center;
-      color: #999;
-      padding: 25px;
-      line-height: 1.8;
+    .result-table-wrap {
+      overflow-x: auto;
     }
 
-    .summary {
-      margin-top: 20px;
-      padding: 20px;
-      border-radius: 18px;
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      min-width: 850px;
+    }
+
+    th,
+    td {
+      padding: 13px 10px;
+      border-bottom: 1px solid #eee;
+      text-align: right;
+    }
+
+    th:first-child,
+    td:first-child {
+      text-align: left;
+    }
+
+    th {
       background: #fff9dc;
     }
 
-    .summary-row {
-      display: flex;
-      justify-content: space-between;
-      margin: 10px 0;
-    }
-
-    .summary-row.big {
-      padding-top: 13px;
-      border-top: 1px dashed #d0b858;
-      font-size: 22px;
-      font-weight: bold;
-    }
-
     .money-message {
-      margin-top: 20px;
+      margin-top: 22px;
       text-align: center;
       font-size: 18px;
       font-weight: bold;
@@ -306,7 +334,8 @@
 
     .money-face {
       display: block;
-      font-size: 48px;
+      font-size: 50px;
+      margin-bottom: 5px;
     }
 
     .notice {
@@ -317,16 +346,22 @@
       padding: 5px 10px 40px;
     }
 
-    @media(max-width:700px) {
+    @media(max-width: 800px) {
       .search-row {
         grid-template-columns: 1fr;
       }
 
-      .market-data {
-        grid-template-columns: repeat(2,1fr);
+      .config-top {
+        grid-template-columns: 1fr;
       }
 
-      .cart-item {
+      .result-summary {
+        grid-template-columns: repeat(2,1fr);
+      }
+    }
+
+    @media(max-width: 520px) {
+      .result-summary {
         grid-template-columns: 1fr;
       }
     }
@@ -341,14 +376,13 @@
   </div>
 
   <h1>
-    錢錢股票商店
+    錢錢股票配置器
   </h1>
 
   <p>
-    上市、上櫃都可以逛 🛍️
+    輸入總資金，照比例幫你算每檔可以買多少
   </p>
 </header>
-
 
 <div class="container">
 
@@ -359,21 +393,38 @@
     </div>
 
     <h2>
-      我的錢錢
+      我的投資錢錢
     </h2>
 
     <div class="budget">
       <input
         id="budget"
         type="number"
-        value="100000"
+        value="1000000"
         min="0"
-        oninput="updateCart()"
+        step="1000"
+        oninput="updateAllocationStatus()"
       >
     </div>
 
     <div style="color:#777;">
-      輸入這次想拿多少錢錢買股票
+      例如：1,000,000 元
+    </div>
+
+    <div class="mode-box">
+      <label>
+        購買方式
+      </label>
+
+      <select id="buyMode">
+        <option value="odd">
+          零股模式
+        </option>
+
+        <option value="lot">
+          只買整張（1 張 = 1,000 股）
+        </option>
+      </select>
     </div>
 
   </div>
@@ -382,7 +433,7 @@
   <div class="card">
 
     <h2>
-      🔎 找股票
+      🔎 找股票加入配置
     </h2>
 
     <label>
@@ -394,7 +445,7 @@
       <input
         id="stockCode"
         type="text"
-        placeholder="例如：2330、6488"
+        placeholder="例如：2330、0050、6488"
         onkeydown="if(event.key==='Enter') searchStock()"
       >
 
@@ -408,7 +459,7 @@
     </div>
 
     <div id="status">
-      🪙 可以搜尋上市或上櫃股票
+      🪙 搜尋一檔股票，再加入你的配置清單
     </div>
 
 
@@ -461,85 +512,13 @@
 
       </div>
 
-
-      <div class="market-data">
-
-        <div class="market-box">
-          <div class="market-label">
-            開盤價
-          </div>
-
-          <div
-            id="openingPrice"
-            class="market-value"
-          ></div>
-        </div>
-
-
-        <div class="market-box">
-          <div class="market-label">
-            最高價
-          </div>
-
-          <div
-            id="highestPrice"
-            class="market-value"
-          ></div>
-        </div>
-
-
-        <div class="market-box">
-          <div class="market-label">
-            最低價
-          </div>
-
-          <div
-            id="lowestPrice"
-            class="market-value"
-          ></div>
-        </div>
-
-
-        <div class="market-box">
-          <div class="market-label">
-            漲跌
-          </div>
-
-          <div
-            id="change"
-            class="market-value"
-          ></div>
-        </div>
-
-      </div>
-
-
-      <div class="buy-section">
-
-        <label>
-          💰 這檔想花多少錢錢？
-        </label>
-
-        <input
-          id="investAmount"
-          type="number"
-          min="0"
-          placeholder="例如：30000"
-          oninput="previewBuy()"
-        >
-
-        <div
-          id="preview"
-          class="preview"
-        >
-          輸入金額，錢錢會幫你算可以買幾股 ✨
-        </div>
+      <div class="add-config">
 
         <button
-          class="cart-btn"
-          onclick="addToCart()"
+          class="calculate-btn"
+          onclick="addCurrentStock()"
         >
-          🛒 放進股票袋袋
+          ➕ 加入我的配置
         </button>
 
       </div>
@@ -552,56 +531,121 @@
   <div class="card">
 
     <h2>
-      🛒 我的股票袋袋
-      <span id="cartCount">
-        0
-      </span>
+      🛒 我的股票配置
     </h2>
 
-    <div id="cartItems">
+    <div id="configList">
 
-      <div class="empty">
-        袋袋目前空空的 🛍️
-        <br>
-        去找一檔喜歡的股票吧！
+      <div
+        id="emptyConfig"
+        style="text-align:center;color:#999;padding:25px;"
+      >
+        還沒有股票喔～先去上面搜尋加入 🪙
       </div>
 
     </div>
 
 
-    <div class="summary">
+    <div
+      id="allocationStatus"
+      class="allocation-status"
+    >
+      目前配置比例：0%
+    </div>
 
-      <div class="summary-row">
-        <span>
-          💰 我的預算
-        </span>
 
-        <strong id="summaryBudget">
-          $100,000
-        </strong>
+    <button
+      class="calculate-btn"
+      onclick="calculateAllocation()"
+    >
+      🧮 幫我算可以買多少
+    </button>
+
+  </div>
+
+
+  <div
+    id="resultCard"
+    class="card result-card"
+  >
+
+    <h2>
+      ✨ 錢錢配置結果
+    </h2>
+
+    <div class="result-summary">
+
+      <div class="summary-box">
+        <div class="summary-label">
+          💰 總資金
+        </div>
+
+        <div
+          id="resultBudget"
+          class="summary-value"
+        ></div>
       </div>
 
 
-      <div class="summary-row">
-        <span>
-          🛍️ 已選股票
-        </span>
+      <div class="summary-box">
+        <div class="summary-label">
+          📊 配置比例
+        </div>
 
-        <strong id="summarySpent">
-          $0
-        </strong>
+        <div
+          id="resultPercent"
+          class="summary-value"
+        ></div>
       </div>
 
 
-      <div class="summary-row big">
-        <span>
-          🪙 錢包剩下
-        </span>
+      <div class="summary-box">
+        <div class="summary-label">
+          🛍️ 實際投入
+        </div>
 
-        <span id="summaryRemain">
-          $100,000
-        </span>
+        <div
+          id="resultSpent"
+          class="summary-value"
+        ></div>
       </div>
+
+
+      <div class="summary-box">
+        <div class="summary-label">
+          🪙 剩餘現金
+        </div>
+
+        <div
+          id="resultRemain"
+          class="summary-value"
+        ></div>
+      </div>
+
+    </div>
+
+
+    <div class="result-table-wrap">
+
+      <table>
+
+        <thead>
+          <tr>
+            <th>股票</th>
+            <th>市場</th>
+            <th>比例</th>
+            <th>分配資金</th>
+            <th>股價</th>
+            <th>可買股數</th>
+            <th>實際投入</th>
+            <th>剩餘</th>
+          </tr>
+        </thead>
+
+        <tbody id="resultTable">
+        </tbody>
+
+      </table>
 
     </div>
 
@@ -610,27 +654,27 @@
       id="moneyMessage"
       class="money-message"
     >
-
-      <span class="money-face">
-        🪙✨
-      </span>
-
-      錢錢準備好囉！
-
     </div>
 
   </div>
 
 
   <div class="notice">
-    本網站為股票資金試算工具。
+
+    本網站為股票資金配置試算工具。
+
     <br>
-    上市資料來自 TWSE，上櫃資料來自 TPEx。
+
+    股票價格來自你目前 Vercel API 串接的 TWSE / TPEx 公開資料。
+
     <br>
-    使用最新可取得收盤價進行試算，
-    並非券商盤中即時逐筆報價。
+
+    使用最新可取得收盤價試算，不是券商盤中即時成交價。
+
     <br>
-    未包含手續費、交易稅等交易成本。
+
+    尚未計算手續費、交易稅等交易成本。
+
   </div>
 
 </div>
@@ -638,16 +682,11 @@
 
 <script>
 
-  const STOCK_API =
-    "/api/stock";
+  const STOCK_API = "/api/stock";
 
+  let currentStock = null;
 
-  let currentStock =
-    null;
-
-
-  let cart =
-    [];
+  let allocations = [];
 
 
   function moneyFormat(number) {
@@ -668,17 +707,14 @@
       return 0;
     }
 
-
     const cleaned =
       String(value)
         .replace(/,/g, "")
         .replace(/--/g, "")
         .trim();
 
-
     const number =
       Number(cleaned);
-
 
     return Number.isNaN(number)
       ? 0
@@ -698,15 +734,11 @@
 
 
     const status =
-      document.getElementById(
-        "status"
-      );
+      document.getElementById("status");
 
 
     const result =
-      document.getElementById(
-        "stockResult"
-      );
+      document.getElementById("stockResult");
 
 
     if (!code) {
@@ -718,11 +750,12 @@
         "none";
 
       return;
+
     }
 
 
     status.innerHTML =
-      "🪙 錢錢正在上市＋上櫃一起找..." ;
+      "🪙 錢錢正在幫你找股票..." ;
 
 
     result.style.display =
@@ -756,8 +789,6 @@
 
       if (!Array.isArray(data)) {
 
-        console.log(data);
-
         throw new Error(
           "API 回傳格式錯誤"
         );
@@ -769,11 +800,13 @@
         data.find(item =>
 
           String(
-            item.code || ""
+            item.code || item.Code || ""
           )
             .trim()
             .toUpperCase()
+
           ===
+
           code
 
         );
@@ -793,12 +826,6 @@
             ${code}
           </strong>
 
-          <br>
-
-          <small>
-            目前查詢上市與上櫃公開資料。
-          </small>
-
         `;
 
 
@@ -809,7 +836,8 @@
 
       const price =
         parsePrice(
-          stock.closingPrice
+          stock.closingPrice ||
+          stock.ClosingPrice
         );
 
 
@@ -823,46 +851,44 @@
           ⚠️ 找到
 
           <strong>
-            ${stock.code}
-            ${stock.name}
+            ${code}
           </strong>
 
-          ，但目前沒有可使用的收盤價。
+          ，但目前沒有可使用的價格。
 
         `;
 
         return;
+
       }
 
 
       currentStock = {
 
-        market:
-          stock.market,
-
         code:
-          stock.code,
+          String(
+            stock.code ||
+            stock.Code
+          ).trim(),
 
         name:
-          stock.name,
+          String(
+            stock.name ||
+            stock.Name ||
+            ""
+          ).trim(),
+
+        market:
+          stock.market ||
+          "上市",
 
         price:
           price,
 
         date:
-          stock.date,
-
-        openingPrice:
-          stock.openingPrice || "-",
-
-        highestPrice:
-          stock.highestPrice || "-",
-
-        lowestPrice:
-          stock.lowestPrice || "-",
-
-        change:
-          stock.change || "-"
+          stock.date ||
+          stock.Date ||
+          ""
 
       };
 
@@ -924,42 +950,6 @@
           : "最新可取得資料";
 
 
-      document.getElementById(
-        "openingPrice"
-      ).textContent =
-        currentStock.openingPrice;
-
-
-      document.getElementById(
-        "highestPrice"
-      ).textContent =
-        currentStock.highestPrice;
-
-
-      document.getElementById(
-        "lowestPrice"
-      ).textContent =
-        currentStock.lowestPrice;
-
-
-      document.getElementById(
-        "change"
-      ).textContent =
-        currentStock.change;
-
-
-      document.getElementById(
-        "investAmount"
-      ).value =
-        "";
-
-
-      document.getElementById(
-        "preview"
-      ).innerHTML =
-        "輸入金額，錢錢會幫你算可以買幾股 ✨";
-
-
       status.innerHTML = `
 
         ✨ 找到啦！
@@ -968,8 +958,6 @@
           ${currentStock.code}
           ${currentStock.name}
         </strong>
-
-        ・${currentStock.market}
 
       `;
 
@@ -993,7 +981,7 @@
 
       status.innerHTML = `
 
-        😭 錢錢取得股票資料失敗。
+        😭 錢錢取得股票資料失敗
 
         <br>
 
@@ -1008,230 +996,240 @@
   }
 
 
-  function previewBuy() {
-
-    if (!currentStock) {
-      return;
-    }
-
-
-    const amount =
-      Number(
-        document.getElementById(
-          "investAmount"
-        ).value
-      );
-
-
-    const preview =
-      document.getElementById(
-        "preview"
-      );
-
-
-    if (
-      !amount ||
-      amount <= 0
-    ) {
-
-      preview.innerHTML =
-        "輸入金額，錢錢會幫你算可以買幾股 ✨";
-
-      return;
-
-    }
-
-
-    const shares =
-      Math.floor(
-        amount /
-        currentStock.price
-      );
-
-
-    if (
-      shares <= 0
-    ) {
-
-      preview.innerHTML =
-        "🥹 這筆錢目前還買不到 1 股。";
-
-      return;
-
-    }
-
-
-    const cost =
-      shares *
-      currentStock.price;
-
-
-    const remain =
-      amount -
-      cost;
-
-
-    preview.innerHTML = `
-
-      ✨ 約可以買
-
-      <strong>
-        ${shares.toLocaleString("zh-TW")}
-        股
-      </strong>
-
-      <br>
-
-      實際使用
-
-      <strong>
-        ${moneyFormat(cost)}
-      </strong>
-
-      <br>
-
-      這筆預算剩
-
-      <strong>
-        ${moneyFormat(remain)}
-      </strong>
-
-    `;
-
-  }
-
-
-  function addToCart() {
+  function addCurrentStock() {
 
     if (!currentStock) {
 
       alert(
-        "請先找股票 🪙"
+        "請先搜尋股票 🪙"
       );
 
       return;
+
     }
 
 
-    const amount =
-      Number(
-        document.getElementById(
-          "investAmount"
-        ).value
-      );
-
-
-    if (
-      !amount ||
-      amount <= 0
-    ) {
-
-      alert(
-        "先輸入想花多少錢錢～"
-      );
-
-      return;
-    }
-
-
-    const shares =
-      Math.floor(
-        amount /
-        currentStock.price
-      );
-
-
-    if (
-      shares <= 0
-    ) {
-
-      alert(
-        "這筆金額還買不到 1 股喔！"
-      );
-
-      return;
-    }
-
-
-    const cost =
-      shares *
-      currentStock.price;
-
-
-    const existing =
-      cart.find(
+    const exists =
+      allocations.some(
         item =>
           item.code ===
           currentStock.code
       );
 
 
-    if (existing) {
+    if (exists) {
 
-      existing.shares +=
-        shares;
+      alert(
+        "這檔股票已經在配置裡囉！"
+      );
 
-      existing.cost +=
-        cost;
-
-    } else {
-
-      cart.push({
-
-        market:
-          currentStock.market,
-
-        code:
-          currentStock.code,
-
-        name:
-          currentStock.name,
-
-        price:
-          currentStock.price,
-
-        shares:
-          shares,
-
-        cost:
-          cost
-
-      });
+      return;
 
     }
 
 
+    allocations.push({
+
+      code:
+        currentStock.code,
+
+      name:
+        currentStock.name,
+
+      market:
+        currentStock.market,
+
+      price:
+        currentStock.price,
+
+      percent:
+        0
+
+    });
+
+
+    renderAllocationList();
+
+
     document.getElementById(
-      "investAmount"
+      "stockCode"
     ).value =
       "";
 
 
     document.getElementById(
-      "preview"
+      "stockResult"
+    ).style.display =
+      "none";
+
+
+    document.getElementById(
+      "status"
     ).innerHTML =
-      "🛍️✨ 成功放進股票袋袋！";
-
-
-    updateCart();
+      "🛍️ 已加入配置！可以繼續搜尋下一檔";
 
   }
 
 
-  function removeCart(index) {
+  function renderAllocationList() {
 
-    cart.splice(
+    const list =
+      document.getElementById(
+        "configList"
+      );
+
+
+    if (
+      allocations.length === 0
+    ) {
+
+      list.innerHTML = `
+
+        <div
+          id="emptyConfig"
+          style="
+            text-align:center;
+            color:#999;
+            padding:25px;
+          "
+        >
+
+          還沒有股票喔～先去上面搜尋加入 🪙
+
+        </div>
+
+      `;
+
+
+      updateAllocationStatus();
+
+      return;
+
+    }
+
+
+    list.innerHTML =
+      allocations.map(
+
+        (item,index) => `
+
+          <div class="config-item">
+
+            <div class="config-top">
+
+              <div>
+
+                <div class="config-stock">
+
+                  ${item.code}
+
+                  ${item.name}
+
+                </div>
+
+                <div class="config-sub">
+
+                  ${item.market}
+
+                  ・股價
+
+                  ${moneyFormat(item.price)}
+
+                </div>
+
+              </div>
+
+
+              <div>
+
+                <label>
+                  配置比例 %
+                </label>
+
+                <input
+                  type="number"
+                  min="0"
+                  max="100"
+                  step="1"
+                  value="${item.percent}"
+                  oninput="
+                    updatePercent(
+                      ${index},
+                      this.value
+                    )
+                  "
+                >
+
+              </div>
+
+
+              <div>
+
+                <label>
+                  預估分配
+                </label>
+
+                <input
+                  type="text"
+                  id="previewMoney${index}"
+                  value="$0"
+                  readonly
+                >
+
+              </div>
+
+
+              <button
+                class="remove-btn"
+                onclick="removeAllocation(${index})"
+              >
+
+                移除
+
+              </button>
+
+            </div>
+
+          </div>
+
+        `
+
+      ).join("");
+
+
+    updateAllocationStatus();
+
+  }
+
+
+  function updatePercent(
+    index,
+    value
+  ) {
+
+    allocations[index].percent =
+      Number(value) || 0;
+
+
+    updateAllocationStatus();
+
+  }
+
+
+  function removeAllocation(index) {
+
+    allocations.splice(
       index,
       1
     );
 
 
-    updateCart();
+    renderAllocationList();
 
   }
 
 
-  function updateCart() {
+  function updateAllocationStatus() {
 
     const budget =
       Number(
@@ -1241,168 +1239,109 @@
       ) || 0;
 
 
-    const totalSpent =
-      cart.reduce(
+    const totalPercent =
+      allocations.reduce(
         (sum,item) =>
-          sum + item.cost,
+          sum + item.percent,
         0
       );
 
 
-    const cartItems =
+    const status =
       document.getElementById(
-        "cartItems"
+        "allocationStatus"
       );
 
 
+    status.textContent =
+      `目前配置比例：${totalPercent}%`;
+
+
     if (
-      cart.length === 0
+      totalPercent === 100
     ) {
 
-      cartItems.innerHTML = `
+      status.className =
+        "allocation-status ok";
 
-        <div class="empty">
 
-          袋袋目前空空的 🛍️
-
-          <br>
-
-          去找一檔喜歡的股票吧！
-
-        </div>
-
-      `;
+      status.textContent =
+        "✅ 配置完成：100%";
 
     } else {
 
-      cartItems.innerHTML =
-        cart.map(
-
-          (item,index) => `
-
-            <div class="cart-item">
-
-              <div>
-
-                <div class="cart-name">
-
-                  ${item.code}
-
-                  ${item.name}
-
-                </div>
-
-                <div class="cart-detail">
-
-                  ${item.market}
-                  ・
-
-                  ${item.shares.toLocaleString("zh-TW")}
-                  股
-
-                  ×
-
-                  ${moneyFormat(item.price)}
-
-                </div>
-
-              </div>
+      status.className =
+        "allocation-status bad";
 
 
-              <strong>
+      if (
+        totalPercent < 100
+      ) {
 
-                ${moneyFormat(item.cost)}
+        status.textContent =
+          `目前配置 ${totalPercent}% ・還差 ${100 - totalPercent}%`;
 
-              </strong>
+      } else {
 
+        status.textContent =
+          `目前配置 ${totalPercent}% ・超過 ${totalPercent - 100}%`;
 
-              <button
-                class="remove-btn"
-                onclick="removeCart(${index})"
-              >
-
-                移除
-
-              </button>
-
-            </div>
-
-          `
-
-        ).join("");
+      }
 
     }
 
 
-    const remain =
-      budget -
-      totalSpent;
+    allocations.forEach(
+      (item,index) => {
+
+        const box =
+          document.getElementById(
+            "previewMoney" +
+            index
+          );
 
 
-    document.getElementById(
-      "cartCount"
-    ).textContent =
-      cart.length;
+        if (box) {
+
+          const allocatedMoney =
+            budget *
+            (
+              item.percent /
+              100
+            );
 
 
-    document.getElementById(
-      "summaryBudget"
-    ).textContent =
-      moneyFormat(budget);
+          box.value =
+            moneyFormat(
+              allocatedMoney
+            );
 
+        }
 
-    document.getElementById(
-      "summarySpent"
-    ).textContent =
-      moneyFormat(totalSpent);
-
-
-    document.getElementById(
-      "summaryRemain"
-    ).textContent =
-      moneyFormat(remain);
-
-
-    updateMoneyFace(
-      budget,
-      remain
+      }
     );
 
   }
 
 
-  function updateMoneyFace(
-    budget,
-    remain
-  ) {
+  function calculateAllocation() {
 
-    const message =
-      document.getElementById(
-        "moneyMessage"
+    const budget =
+      Number(
+        document.getElementById(
+          "budget"
+        ).value
       );
 
 
     if (
-      remain < 0
+      !budget ||
+      budget <= 0
     ) {
 
-      message.innerHTML = `
-
-        <span class="money-face">
-          😭💸
-        </span>
-
-        錢錢不夠啦！
-
-        <br>
-
-        超出
-
-        ${moneyFormat(
-          Math.abs(remain)
-        )}
-
-      `;
+      alert(
+        "請先輸入總資金 💰"
+      );
 
       return;
 
@@ -1410,22 +1349,250 @@
 
 
     if (
-      budget <= 0
+      allocations.length === 0
     ) {
 
-      message.innerHTML = `
-
-        <span class="money-face">
-          🪙
-        </span>
-
-        先輸入今天有多少錢錢～
-
-      `;
+      alert(
+        "請先加入股票 🛍️"
+      );
 
       return;
 
     }
+
+
+    const totalPercent =
+      allocations.reduce(
+        (sum,item) =>
+          sum + item.percent,
+        0
+      );
+
+
+    if (
+      Math.abs(
+        totalPercent - 100
+      ) > 0.001
+    ) {
+
+      alert(
+        "配置比例要剛好等於 100% 喔！"
+      );
+
+      return;
+
+    }
+
+
+    const buyMode =
+      document.getElementById(
+        "buyMode"
+      ).value;
+
+
+    let totalSpent =
+      0;
+
+
+    let rows =
+      "";
+
+
+    allocations.forEach(
+      item => {
+
+        const allocatedMoney =
+          budget *
+          (
+            item.percent /
+            100
+          );
+
+
+        let shares =
+          0;
+
+
+        if (
+          buyMode === "lot"
+        ) {
+
+          const oneLotCost =
+            item.price *
+            1000;
+
+
+          const lots =
+            Math.floor(
+              allocatedMoney /
+              oneLotCost
+            );
+
+
+          shares =
+            lots *
+            1000;
+
+        } else {
+
+          shares =
+            Math.floor(
+              allocatedMoney /
+              item.price
+            );
+
+        }
+
+
+        const actualCost =
+          shares *
+          item.price;
+
+
+        const remain =
+          allocatedMoney -
+          actualCost;
+
+
+        totalSpent +=
+          actualCost;
+
+
+        rows += `
+
+          <tr>
+
+            <td>
+              <strong>
+                ${item.code}
+              </strong>
+
+              <br>
+
+              <small>
+                ${item.name}
+              </small>
+            </td>
+
+            <td>
+              ${item.market}
+            </td>
+
+            <td>
+              ${item.percent}%
+            </td>
+
+            <td>
+              ${moneyFormat(
+                allocatedMoney
+              )}
+            </td>
+
+            <td>
+              ${moneyFormat(
+                item.price
+              )}
+            </td>
+
+            <td>
+              ${shares.toLocaleString("zh-TW")}
+              股
+            </td>
+
+            <td>
+              ${moneyFormat(
+                actualCost
+              )}
+            </td>
+
+            <td>
+              ${moneyFormat(
+                remain
+              )}
+            </td>
+
+          </tr>
+
+        `;
+
+      }
+
+    );
+
+
+    const totalRemain =
+      budget -
+      totalSpent;
+
+
+    document.getElementById(
+      "resultBudget"
+    ).textContent =
+      moneyFormat(
+        budget
+      );
+
+
+    document.getElementById(
+      "resultPercent"
+    ).textContent =
+      totalPercent +
+      "%";
+
+
+    document.getElementById(
+      "resultSpent"
+    ).textContent =
+      moneyFormat(
+        totalSpent
+      );
+
+
+    document.getElementById(
+      "resultRemain"
+    ).textContent =
+      moneyFormat(
+        totalRemain
+      );
+
+
+    document.getElementById(
+      "resultTable"
+    ).innerHTML =
+      rows;
+
+
+    document.getElementById(
+      "resultCard"
+    ).style.display =
+      "block";
+
+
+    updateMoneyMessage(
+      budget,
+      totalRemain
+    );
+
+
+    document.getElementById(
+      "resultCard"
+    ).scrollIntoView({
+      behavior:
+        "smooth"
+    });
+
+  }
+
+
+  function updateMoneyMessage(
+    budget,
+    remain
+  ) {
+
+    const box =
+      document.getElementById(
+        "moneyMessage"
+      );
 
 
     const ratio =
@@ -1434,56 +1601,56 @@
 
 
     if (
-      ratio >= 0.7
+      ratio >= 0.1
     ) {
 
-      message.innerHTML = `
+      box.innerHTML = `
 
         <span class="money-face">
           🪙✨
         </span>
 
-        錢包還胖胖的，可以繼續逛！
+        配置完成！
+
+        <br>
+
+        還保留了
+
+        ${moneyFormat(remain)}
+
+        現金。
 
       `;
 
     } else if (
-      ratio >= 0.4
+      remain > 0
     ) {
 
-      message.innerHTML = `
+      box.innerHTML = `
 
         <span class="money-face">
           😊🪙
         </span>
 
-        買了一些，錢錢還很有精神！
+        錢錢安排得很滿！
 
-      `;
+        <br>
 
-    } else if (
-      ratio >= 0.15
-    ) {
+        剩下
 
-      message.innerHTML = `
-
-        <span class="money-face">
-          😳🪙
-        </span>
-
-        錢錢開始變瘦了，要注意預算！
+        ${moneyFormat(remain)}
 
       `;
 
     } else {
 
-      message.innerHTML = `
+      box.innerHTML = `
 
         <span class="money-face">
-          🥹💰
+          🎉🪙
         </span>
 
-        錢錢快見底啦！
+        幾乎全部配置完成！
 
       `;
 
@@ -1492,7 +1659,7 @@
   }
 
 
-  updateCart();
+  updateAllocationStatus();
 
 </script>
 
